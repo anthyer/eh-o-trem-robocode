@@ -1,6 +1,6 @@
 package EhOTrem;
 
-import robocode.*;
+import robocode.*; //é o trem mais brabo
 
 public class EhOTrem extends Robot
 {
