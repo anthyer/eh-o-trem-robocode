@@ -1,6 +1,6 @@
 package EhOTrem;
 
-import robocode.*;
+import robocode.*; //lele 33
 
 public class EhOTrem extends Robot
 {
