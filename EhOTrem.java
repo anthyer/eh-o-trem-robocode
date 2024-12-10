@@ -1,6 +1,7 @@
 package EhOTrem;
 
 import robocode.*;
+//Get those infos
 
 public class EhOTrem extends AdvancedRobot {
     Boolean mode1V1 = false;
