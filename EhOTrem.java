@@ -42,3 +42,15 @@ public class EhOTrem extends AdvancedRobot {
         setScanColor(new java.awt.Color(205, 148, 25));
     }
 }
+
+class Vector2 {
+    
+}
+
+class Arena {
+
+}
+
+class Enemy {
+
+}
