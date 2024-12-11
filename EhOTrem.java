@@ -4,10 +4,13 @@ import robocode.*;
 //Get those infos
 
 public class EhOTrem extends AdvancedRobot {
-    Boolean mode1V1 = false;
+    private Boolean mode1V1 = false;
+    private Arena arena;
 
     public void run(){
         setTremColor();
+        arena = new Arena(getBattleFieldHeight(), getBattleFieldWidth());
+        System.out.println("Dimensões da arena: " + arena.length + " x " + arena.width);
 
         while(true) {
             for(int directionTurns = 0; directionTurns < 100; directionTurns++) {
