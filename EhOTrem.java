@@ -8,73 +8,81 @@ import java.util.ArrayList;
 public class EhOTrem extends AdvancedRobot {
 
     // Variáveis compartilhadas
-    private Point2D.Double myLocation; // Localização atual do robô
-    private Point2D.Double enemyLocation; // Localização atual do inimigo
-    private ArrayList<EnemyWave> enemyWaves; // Lista para armazenar ondas de tiro do inimigo
-    private ArrayList<Integer> surfDirections; // Direções de surf para evitar tiros
-    private ArrayList<Double> surfAbsBearings; // Ângulos absolutos das direções de surf
-    private static final int BINS = 47; // Número de divisões para o sistema de perigo
-    private static final double[] surfStats = new double[BINS]; // Estatísticas de perigo
-    private static final Rectangle2D.Double FIELD_RECT = new Rectangle2D.Double(18, 18, 764, 564); // Limites do campo
-    private static final double WALL_STICK = 160; // Distância mínima da parede
-    private double opponentEnergy = 100.0; // Energia inicial do oponente
+    private Point2D.Double myLocation;
+    private Point2D.Double enemyLocation;
+
+    private ArrayList<EnemyWave> enemyWaves;
+    private ArrayList<Integer> surfDirections;
+    private ArrayList<Double> surfAbsBearings;
+
+    private static final int BINS = 47;
+    private static final double[] surfStats = new double[BINS];
+    private static final Rectangle2D.Double FIELD_RECT = new Rectangle2D.Double(18, 18, 764, 564);
+    private static final double WALL_STICK = 160;
+    private double opponentEnergy = 100.0;
 
     public void run() {
-        enemyWaves = new ArrayList<>(); // Inicializa a lista de ondas
-        surfDirections = new ArrayList<>(); // Inicializa a lista de direções de surf
-        surfAbsBearings = new ArrayList<>(); // Inicializa a lista de ângulos absolutos de surf
+        enemyWaves = new ArrayList<>();
+        surfDirections = new ArrayList<>();
+        surfAbsBearings = new ArrayList<>();
+        setTremColor();
 
-        // Configurações iniciais do robô
-        setAdjustGunForRobotTurn(true);
-        setAdjustRadarForGunTurn(true);
+        setAdjustGunForRobotTurn(true);  // Ajustar a arma para virar com o robô
+        setAdjustRadarForGunTurn(true); // Ajustar o radar para seguir a arma
 
-        // Loop principal
         do {
-            turnRadarRightRadians(Double.POSITIVE_INFINITY); // Mantém o radar girando continuamente
+            turnRadarRightRadians(Double.POSITIVE_INFINITY);  // Rastrear o inimigo indefinidamente
         } while (true);
     }
 
+    public void setTremColor(){
+        setBodyColor(new java.awt.Color(255, 1, 255));
+        setGunColor(new java.awt.Color(205, 148, 25));
+        setBulletColor(new java.awt.Color(255, 1, 213, 255));
+        setScanColor(new java.awt.Color(205, 148, 25));
+    }
+
     public void onScannedRobot(ScannedRobotEvent e) {
-        myLocation = new Point2D.Double(getX(), getY()); // Atualiza a localização do robô
+        myLocation = new Point2D.Double(getX(), getY());
 
-        double lateralVelocity = getVelocity() * Math.sin(e.getBearingRadians()); // Calcula a velocidade lateral
-        double absBearing = e.getBearingRadians() + getHeadingRadians(); // Calcula o ângulo absoluto do inimigo
+        double lateralVelocity = getVelocity() * Math.sin(e.getBearingRadians());
+        double absBearing = e.getBearingRadians() + getHeadingRadians();
 
-        setTurnRadarRightRadians(Utils.normalRelativeAngle(absBearing - getRadarHeadingRadians()) * 2); // Ajusta o radar
+        setTurnRadarRightRadians(Utils.normalRelativeAngle(absBearing - getRadarHeadingRadians()) * 2);
 
-        surfDirections.add(0, lateralVelocity >= 0 ? 1 : -1); // Determina a direção de surf
-        surfAbsBearings.add(0, absBearing + Math.PI); // Armazena o ângulo absoluto para surf
+        surfDirections.add(0, lateralVelocity >= 0 ? 1 : -1);
+        surfAbsBearings.add(0, absBearing + Math.PI);
 
-        double bulletPower = opponentEnergy - e.getEnergy(); // Calcula a potência do tiro do inimigo
+        double bulletPower = opponentEnergy - e.getEnergy();
         if (bulletPower < 3.01 && bulletPower > 0.09 && surfDirections.size() > 2) {
-            // Cria uma nova onda de tiro
             EnemyWave ew = new EnemyWave();
-            ew.fireTime = getTime() - 1; // Define o tempo do disparo
-            ew.bulletVelocity = bulletVelocity(bulletPower); // Velocidade do projétil
-            ew.distanceTraveled = bulletVelocity(bulletPower); // Distância inicial
-            ew.direction = surfDirections.get(2); // Direção da onda
-            ew.directAngle = surfAbsBearings.get(2); // Ângulo direto da onda
-            ew.fireLocation = (Point2D.Double) enemyLocation.clone(); // Localização de origem da onda
+            ew.fireTime = getTime() - 1;
+            ew.bulletVelocity = bulletVelocity(bulletPower);
+            ew.distanceTraveled = bulletVelocity(bulletPower);
+            ew.direction = surfDirections.get(2);
+            ew.directAngle = surfAbsBearings.get(2);
+            ew.fireLocation = (Point2D.Double) enemyLocation.clone();
 
-            enemyWaves.add(ew); // Adiciona a onda à lista
+            enemyWaves.add(ew);
         }
 
-        opponentEnergy = e.getEnergy(); // Atualiza a energia do oponente
-        enemyLocation = project(myLocation, absBearing, e.getDistance()); // Calcula a localização do inimigo
+        opponentEnergy = e.getEnergy();
+        enemyLocation = project(myLocation, absBearing, e.getDistance());
 
-        updateWaves(); // Atualiza as ondas existentes
-        doSurfing(); // Executa a lógica de surf
+        updateWaves();
+        doSurfing();
 
-        // Lógica de disparo (não implementada)
+        // Disparo de bala
+        fireAtEnemy(e);
     }
 
     private void updateWaves() {
         for (int i = 0; i < enemyWaves.size(); i++) {
             EnemyWave ew = enemyWaves.get(i);
-            ew.distanceTraveled = (getTime() - ew.fireTime) * ew.bulletVelocity; // Calcula a distância percorrida pela onda
+            ew.distanceTraveled = (getTime() - ew.fireTime) * ew.bulletVelocity;
 
             if (ew.distanceTraveled > myLocation.distance(ew.fireLocation) + 50) {
-                enemyWaves.remove(i); // Remove ondas que já passaram do robô
+                enemyWaves.remove(i);
                 i--;
             }
         }
@@ -88,41 +96,41 @@ public class EhOTrem extends AdvancedRobot {
             double distance = myLocation.distance(ew.fireLocation) - ew.distanceTraveled;
 
             if (distance > ew.bulletVelocity && distance < closestDistance) {
-                surfWave = ew; // Define a onda mais próxima
+                surfWave = ew;
                 closestDistance = distance;
             }
         }
 
-        return surfWave; // Retorna a onda mais próxima
+        return surfWave;
     }
 
     private void doSurfing() {
-        EnemyWave surfWave = getClosestSurfableWave(); // Obtém a onda mais próxima
+        EnemyWave surfWave = getClosestSurfableWave();
 
         if (surfWave == null) return;
 
-        double dangerLeft = checkDanger(surfWave, -1); // Calcula o perigo à esquerda
-        double dangerRight = checkDanger(surfWave, 1); // Calcula o perigo à direita
+        double dangerLeft = checkDanger(surfWave, -1);
+        double dangerRight = checkDanger(surfWave, 1);
 
-        double goAngle = absoluteBearing(surfWave.fireLocation, myLocation); // Calcula o ângulo para se mover
+        double goAngle = absoluteBearing(surfWave.fireLocation, myLocation);
         if (dangerLeft < dangerRight) {
-            goAngle = wallSmoothing(myLocation, goAngle - (Math.PI / 2), -1); // Move-se para a esquerda
+            goAngle = wallSmoothing(myLocation, goAngle - (Math.PI / 2), -1);
         } else {
-            goAngle = wallSmoothing(myLocation, goAngle + (Math.PI / 2), 1); // Move-se para a direita
+            goAngle = wallSmoothing(myLocation, goAngle + (Math.PI / 2), 1);
         }
 
-        setBackAsFront(this, goAngle); // Move o robô para a direção calculada
+        setBackAsFront(this, goAngle);
     }
 
     private double checkDanger(EnemyWave surfWave, int direction) {
-        int index = getFactorIndex(surfWave, predictPosition(surfWave, direction)); // Calcula o índice do fator de perigo
-        return surfStats[index]; // Retorna o perigo associado
+        int index = getFactorIndex(surfWave, predictPosition(surfWave, direction));
+        return surfStats[index];
     }
 
     private Point2D.Double predictPosition(EnemyWave surfWave, int direction) {
-        Point2D.Double predictedPosition = (Point2D.Double) myLocation.clone(); // Clona a localização atual
-        double predictedVelocity = getVelocity(); // Velocidade prevista
-        double predictedHeading = getHeadingRadians(); // Direção prevista
+        Point2D.Double predictedPosition = (Point2D.Double) myLocation.clone();
+        double predictedVelocity = getVelocity();
+        double predictedHeading = getHeadingRadians();
         double maxTurning, moveAngle, moveDir;
 
         int counter = 0;
@@ -144,49 +152,49 @@ public class EhOTrem extends AdvancedRobot {
             predictedVelocity += (predictedVelocity * moveDir < 0 ? 2 * moveDir : moveDir);
             predictedVelocity = limit(-8, predictedVelocity, 8);
 
-            predictedPosition = project(predictedPosition, predictedHeading, predictedVelocity); // Calcula a nova posição prevista
+            predictedPosition = project(predictedPosition, predictedHeading, predictedVelocity);
 
             counter++;
             if (predictedPosition.distance(surfWave.fireLocation) < surfWave.distanceTraveled + (counter * surfWave.bulletVelocity) + surfWave.bulletVelocity) {
-                intercepted = true; // Verifica se o projétil atinge a posição prevista
+                intercepted = true;
             }
         } while (!intercepted && counter < 500);
 
-        return predictedPosition; // Retorna a posição prevista
+        return predictedPosition;
     }
 
     private int getFactorIndex(EnemyWave ew, Point2D.Double targetLocation) {
         double offsetAngle = absoluteBearing(ew.fireLocation, targetLocation) - ew.directAngle;
         double factor = Utils.normalRelativeAngle(offsetAngle) / maxEscapeAngle(ew.bulletVelocity) * ew.direction;
 
-        return (int) limit(0, (factor * ((BINS - 1) / 2)) + ((BINS - 1) / 2), BINS - 1); // Calcula o índice do fator de perigo
+        return (int) limit(0, (factor * ((BINS - 1) / 2)) + ((BINS - 1) / 2), BINS - 1);
     }
 
     private double wallSmoothing(Point2D.Double botLocation, double angle, int orientation) {
         while (!FIELD_RECT.contains(project(botLocation, angle, WALL_STICK))) {
-            angle += orientation * 0.05; // Ajusta o ângulo para evitar colisão com a parede
+            angle += orientation * 0.05;
         }
         return angle;
     }
 
     private static Point2D.Double project(Point2D.Double sourceLocation, double angle, double length) {
-        return new Point2D.Double(sourceLocation.x + Math.sin(angle) * length, sourceLocation.y + Math.cos(angle) * length); // Calcula uma nova posição baseada em um ângulo e distância
+        return new Point2D.Double(sourceLocation.x + Math.sin(angle) * length, sourceLocation.y + Math.cos(angle) * length);
     }
 
     private static double absoluteBearing(Point2D.Double source, Point2D.Double target) {
-        return Math.atan2(target.x - source.x, target.y - source.y); // Calcula o ângulo absoluto entre duas posições
+        return Math.atan2(target.x - source.x, target.y - source.y);
     }
 
     private static double limit(double min, double value, double max) {
-        return Math.max(min, Math.min(value, max)); // Restringe um valor entre um mínimo e um máximo
+        return Math.max(min, Math.min(value, max));
     }
 
     private static double bulletVelocity(double power) {
-        return 20.0 - (3.0 * power); // Calcula a velocidade de um projétil com base na potência
+        return 20.0 - (3.0 * power);
     }
 
     private static double maxEscapeAngle(double velocity) {
-        return Math.asin(8.0 / velocity); // Calcula o ângulo máximo de fuga baseado na velocidade do projétil
+        return Math.asin(8.0 / velocity);
     }
 
     private static void setBackAsFront(AdvancedRobot robot, double goAngle) {
@@ -208,10 +216,24 @@ public class EhOTrem extends AdvancedRobot {
         }
     }
 
+    // Função para disparar contra o inimigo
+    private void fireAtEnemy(ScannedRobotEvent e) {
+        double distance = e.getDistance();
+        double firePower = Math.min(3.0, Math.max(1.0, getEnergy() / 10)); // Dispara com base na energia disponível
+
+        if (distance < 100) { // Se o inimigo está muito perto, usa potência máxima
+            firePower = 3.0;
+        }
+
+        double absBearing = e.getBearingRadians() + getHeadingRadians();
+        setTurnGunRightRadians(Utils.normalRelativeAngle(absBearing - getGunHeadingRadians()));
+        setFire(firePower);
+    }
+
     class EnemyWave {
-        Point2D.Double fireLocation; // Local de origem da onda
-        long fireTime; // Momento do disparo
-        double bulletVelocity, directAngle, distanceTraveled; // Propriedades da onda
-        int direction; // Direção da onda
+        Point2D.Double fireLocation;
+        long fireTime;
+        double bulletVelocity, directAngle, distanceTraveled;
+        int direction;
     }
 }
