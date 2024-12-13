@@ -156,6 +156,18 @@ public class EhOTrem extends AdvancedRobot {
 
         return predictedPosition; // Retorna a posição prevista
     }
+}
+
+class Vector2 {
+    public double x, y;
+
+    public Vector2(double x, double y) {
+        this.x = x;
+        this.y = y;
+
+    }
+}
+
 
     private int getFactorIndex(EnemyWave ew, Point2D.Double targetLocation) {
         double offsetAngle = absoluteBearing(ew.fireLocation, targetLocation) - ew.directAngle;
@@ -208,12 +220,33 @@ public class EhOTrem extends AdvancedRobot {
             }
             robot.setAhead(100);
         }
-    }
 
-    class EnemyWave {
+class Arena {
+    public double length, width;
+
+    public Arena(double length, double width) {
+        this.length = length;
+        this.width = width;
+
+    }
+}
+
+class Enemy {
+    public String name;
+    public double health, speed, energy;
+    public Vector2 position;  
+
+    public Enemy(String name, double health, double speed, double energy, Vector2 position) {
+        this.name = name;
+        this.health = health;
+        this.speed = speed;
+        this.energy = energy;
+        this.position = position;
+    }
+}
+class EnemyWave {
         Point2D.Double fireLocation; // Local de origem da onda
         long fireTime; // Momento do disparo
         double bulletVelocity, directAngle, distanceTraveled; // Propriedades da onda
         int direction; // Direção da onda
-    }
-}
+  }
