@@ -10,11 +10,9 @@ public class EhOTrem extends AdvancedRobot {
     // Variáveis compartilhadas
     private Point2D.Double myLocation; // Localização atual do robô
     private Point2D.Double enemyLocation; // Localização atual do inimigo
-
     private ArrayList<EnemyWave> enemyWaves; // Lista para armazenar ondas de tiro do inimigo
     private ArrayList<Integer> surfDirections; // Direções de surf para evitar tiros
     private ArrayList<Double> surfAbsBearings; // Ângulos absolutos das direções de surf
-
     private static final int BINS = 47; // Número de divisões para o sistema de perigo
     private static final double[] surfStats = new double[BINS]; // Estatísticas de perigo
     private static final Rectangle2D.Double FIELD_RECT = new Rectangle2D.Double(18, 18, 764, 564); // Limites do campo
@@ -156,18 +154,6 @@ public class EhOTrem extends AdvancedRobot {
 
         return predictedPosition; // Retorna a posição prevista
     }
-}
-
-class Vector2 {
-    public double x, y;
-
-    public Vector2(double x, double y) {
-        this.x = x;
-        this.y = y;
-
-    }
-}
-
 
     private int getFactorIndex(EnemyWave ew, Point2D.Double targetLocation) {
         double offsetAngle = absoluteBearing(ew.fireLocation, targetLocation) - ew.directAngle;
@@ -220,33 +206,12 @@ class Vector2 {
             }
             robot.setAhead(100);
         }
-
-class Arena {
-    public double length, width;
-
-    public Arena(double length, double width) {
-        this.length = length;
-        this.width = width;
-
     }
-}
 
-class Enemy {
-    public String name;
-    public double health, speed, energy;
-    public Vector2 position;  
-
-    public Enemy(String name, double health, double speed, double energy, Vector2 position) {
-        this.name = name;
-        this.health = health;
-        this.speed = speed;
-        this.energy = energy;
-        this.position = position;
-    }
-}
-class EnemyWave {
+    class EnemyWave {
         Point2D.Double fireLocation; // Local de origem da onda
         long fireTime; // Momento do disparo
         double bulletVelocity, directAngle, distanceTraveled; // Propriedades da onda
         int direction; // Direção da onda
-  }
+    }
+}
