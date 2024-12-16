@@ -76,6 +76,24 @@ public class EhOTrem extends AdvancedRobot {
         fireAtEnemy(e);
     }
 
+   public void onHitRobot(HitRobotEvent e) {
+        // Ajustar o robô para o lado contrário do inimigo
+        adjustBearingAwayFromEnemy(e);
+        
+        // Se o robô tiver energia suficiente, atirar no inimigo
+        if (getEnergy() > 50) {
+            setFire(3);
+        } else {
+            setFire(1);
+        }
+
+        // Se o robô estiver muito próximo do inimigo, mover-se para trás
+        if (e.getBearing() > -90 && e.getBearing() < 90) {
+            setBack(50);
+        } else {
+            setAhead(50);
+        }
+    }
     private void updateWaves() {
         for (int i = 0; i < enemyWaves.size(); i++) {
             EnemyWave ew = enemyWaves.get(i);
@@ -87,6 +105,16 @@ public class EhOTrem extends AdvancedRobot {
             }
         }
     }
+
+    private void adjustBearingAwayFromEnemy(HitRobotEvent e) {
+        // Determinar o ângulo para se afastar do robô
+        double angleToMove = e.getBearingRadians() + Math.PI;
+
+        // Ajustar a direção do robô para evitar travamento
+        setTurnRightRadians(Utils.normalRelativeAngle(angleToMove - getHeadingRadians()));
+        setAhead(100); // Move-se para frente na direção ajustada
+    }
+
 
     private EnemyWave getClosestSurfableWave() {
         double closestDistance = Double.POSITIVE_INFINITY;
