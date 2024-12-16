@@ -35,7 +35,7 @@ public class EhOTrem extends AdvancedRobot {
         } while (true);
     }
 
-    public void setTremColor(){
+    public void setTremColor() {
         setBodyColor(new java.awt.Color(255, 1, 255));
         setGunColor(new java.awt.Color(205, 148, 25));
         setBulletColor(new java.awt.Color(255, 1, 213, 255));
@@ -72,7 +72,7 @@ public class EhOTrem extends AdvancedRobot {
         updateWaves();
         doSurfing();
 
-        // Disparo de bala
+        // Disparo de bala com mira adaptativa
         fireAtEnemy(e);
     }
 
@@ -163,6 +163,45 @@ public class EhOTrem extends AdvancedRobot {
         return predictedPosition;
     }
 
+    private void fireAtEnemy(ScannedRobotEvent e) {
+        double firePower = Math.min(3.0, Math.max(1.0, getEnergy() / 10)); // Ajusta a potência do tiro com base na energia
+        double bulletSpeed = bulletVelocity(firePower);
+
+        // Prever a posição futura do inimigo
+        Point2D.Double predictedPosition = predictEnemyPosition(e, bulletSpeed);
+
+        // Calcular o ângulo necessário para mirar na posição prevista
+        double predictedBearing = absoluteBearing(myLocation, predictedPosition);
+
+        // Ajustar a mira para o local previsto
+        setTurnGunRightRadians(Utils.normalRelativeAngle(predictedBearing - getGunHeadingRadians()));
+
+        // Atirar com a potência definida
+        if (getGunHeat() == 0) { // Garante que a arma não está superaquecida
+            setFire(firePower);
+        }
+    }
+
+    private Point2D.Double predictEnemyPosition(ScannedRobotEvent e, double bulletSpeed) {
+        Point2D.Double predictedPosition = (Point2D.Double) enemyLocation.clone();
+        double enemyHeading = e.getHeadingRadians();
+        double enemyVelocity = e.getVelocity();
+        double deltaTime = 0;
+
+        // Iterar para prever a posição do inimigo no futuro
+        while ((++deltaTime) * bulletSpeed < myLocation.distance(predictedPosition)) {
+            // Atualizar a posição do inimigo com base no movimento atual
+            predictedPosition = project(predictedPosition, enemyHeading, enemyVelocity);
+
+            // Prever a mudança de direção se o inimigo atingir as bordas do campo
+            if (!FIELD_RECT.contains(predictedPosition)) {
+                enemyHeading += Math.PI; // Inverte a direção ao atingir a parede
+            }
+        }
+
+        return predictedPosition;
+    }
+
     private int getFactorIndex(EnemyWave ew, Point2D.Double targetLocation) {
         double offsetAngle = absoluteBearing(ew.fireLocation, targetLocation) - ew.directAngle;
         double factor = Utils.normalRelativeAngle(offsetAngle) / maxEscapeAngle(ew.bulletVelocity) * ew.direction;
@@ -214,20 +253,6 @@ public class EhOTrem extends AdvancedRobot {
             }
             robot.setAhead(100);
         }
-    }
-
-    // Função para disparar contra o inimigo
-    private void fireAtEnemy(ScannedRobotEvent e) {
-        double distance = e.getDistance();
-        double firePower = Math.min(3.0, Math.max(1.0, getEnergy() / 10)); // Dispara com base na energia disponível
-
-        if (distance < 100) { // Se o inimigo está muito perto, usa potência máxima
-            firePower = 3.0;
-        }
-
-        double absBearing = e.getBearingRadians() + getHeadingRadians();
-        setTurnGunRightRadians(Utils.normalRelativeAngle(absBearing - getGunHeadingRadians()));
-        setFire(firePower);
     }
 
     class EnemyWave {
