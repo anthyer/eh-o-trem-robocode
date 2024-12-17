@@ -76,7 +76,7 @@ public class EhOTrem extends AdvancedRobot {
         fireAtEnemy(e);
     }
 
-   public void onHitRobot(HitRobotEvent e) {
+    public void onHitRobot(HitRobotEvent e) {
         // Ajustar o robô para o lado contrário do inimigo
         adjustBearingAwayFromEnemy(e);
         
@@ -86,14 +86,54 @@ public class EhOTrem extends AdvancedRobot {
         } else {
             setFire(1);
         }
-
+    
         // Se o robô estiver muito próximo do inimigo, mover-se para trás
         if (e.getBearing() > -90 && e.getBearing() < 90) {
             setBack(50);
         } else {
             setAhead(50);
         }
+    
+        // Mudar o alvo do radar para o robô que bateu
+        double bearing = e.getBearing();
+        double heading = getHeading();
+        double radarTurn = Utils.normalRelativeAngleDegrees(heading + bearing - getRadarHeading());
+        setTurnRadarRight(radarTurn);
+        execute();
     }
+    
+    public void onHitByBullet(HitByBulletEvent e) {
+        // Lógica para lidar com tiros recebidos
+        // Você pode adicionar movimentação evasiva aqui
+        double bearing = e.getBearing();
+        double heading = getHeading();
+        double angle = Math.toRadians((heading + bearing) % 360);
+    
+        // Calcular a posição do inimigo que disparou o tiro
+        double enemyX = getX() + Math.sin(angle) * e.getVelocity();
+        double enemyY = getY() + Math.cos(angle) * e.getVelocity();
+    
+        // Adicionar lógica para reagir ao tiro
+        // Por exemplo, mover-se para uma posição diferente
+        setTurnRight(90 - bearing);
+        setAhead(150);
+        execute();
+    
+        // Verificar se o robô conseguiu se mover
+        if (getDistanceRemaining() == 0) {
+            // Se não conseguiu se mover, tentar na direção oposta
+            setTurnRight(90 - bearing);
+            setBack(150);
+            execute();
+        }
+    
+        // Mudar o alvo do radar para o robô que está atingindo
+        double radarTurn = Utils.normalRelativeAngleDegrees(heading + bearing - getRadarHeading());
+        setTurnRadarRight(radarTurn);
+        execute();
+    }
+    
+
     private void updateWaves() {
         for (int i = 0; i < enemyWaves.size(); i++) {
             EnemyWave ew = enemyWaves.get(i);
