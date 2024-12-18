@@ -4,7 +4,8 @@ import java.awt.geom.*;
 import robocode.*;
 import robocode.util.Utils;
 import java.util.ArrayList;
-
+// Ponto-futuro
+// Por: Antonio e Bernardo
 public class EhOTrem extends AdvancedRobot {
 
     // Variáveis compartilhadas
