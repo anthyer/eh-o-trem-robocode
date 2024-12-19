@@ -17,11 +17,16 @@ public class EhOTrem extends AdvancedRobot {
 
     private static final int BINS = 47;
     private static final double[] surfStats = new double[BINS];
-    private static final Rectangle2D.Double FIELD_RECT = new Rectangle2D.Double(18, 18, 764, 564);
     private static final double WALL_STICK = 160;
     private double opponentEnergy = 100.0;
+    private Rectangle2D.Double fieldRect;
 
     public void run() {
+        // Inicializar o campo de batalha dinamicamente
+        double fieldWidth = getBattleFieldWidth();
+        double fieldHeight = getBattleFieldHeight();
+        fieldRect = new Rectangle2D.Double(18, 18, fieldWidth - 36, fieldHeight - 36);
+
         enemyWaves = new ArrayList<>();
         surfDirections = new ArrayList<>();
         surfAbsBearings = new ArrayList<>();
@@ -31,19 +36,8 @@ public class EhOTrem extends AdvancedRobot {
         setAdjustRadarForGunTurn(true); // Ajustar o radar para seguir a arma
 
         do {
-            checkBattleMode();
             turnRadarRightRadians(Double.POSITIVE_INFINITY);  // Rastrear o inimigo indefinidamente
         } while (true);
-    }
-
-    private void checkBattleMode() {
-        if (getOthers() > 2) {
-            // Modo de batalha melee
-            antiGravityMovement();
-        } else {
-            // Modo de batalha 1v1
-            setTurnRadarRightRadians(Double.POSITIVE_INFINITY);
-        }
     }
 
     public void setTremColor() {
@@ -54,11 +48,6 @@ public class EhOTrem extends AdvancedRobot {
     }
 
     public void onScannedRobot(ScannedRobotEvent e) {
-        if (getOthers() > 2) {
-            // Modo de batalha melee (vazio)
-            return;
-        }
-
         myLocation = new Point2D.Double(getX(), getY());
 
         double lateralVelocity = getVelocity() * Math.sin(e.getBearingRadians());
@@ -77,10 +66,9 @@ public class EhOTrem extends AdvancedRobot {
             ew.distanceTraveled = bulletVelocity(bulletPower);
             ew.direction = surfDirections.get(2);
             ew.directAngle = surfAbsBearings.get(2);
-            if (enemyLocation != null) {
-                ew.fireLocation = (Point2D.Double) enemyLocation.clone();
-                enemyWaves.add(ew);
-            }
+            ew.fireLocation = (Point2D.Double) enemyLocation.clone();
+
+            enemyWaves.add(ew);
         }
 
         opponentEnergy = e.getEnergy();
@@ -279,7 +267,7 @@ public class EhOTrem extends AdvancedRobot {
             predictedPosition = project(predictedPosition, enemyHeading, enemyVelocity);
 
             // Prever a mudança de direção se o inimigo atingir as bordas do campo
-            if (!FIELD_RECT.contains(predictedPosition)) {
+            if (!fieldRect.contains(predictedPosition)) {
                 enemyHeading += Math.PI; // Inverte a direção ao atingir a parede
             }
         }
@@ -295,7 +283,7 @@ public class EhOTrem extends AdvancedRobot {
     }
 
     private double wallSmoothing(Point2D.Double botLocation, double angle, int orientation) {
-        while (!FIELD_RECT.contains(project(botLocation, angle, WALL_STICK))) {
+        while (!fieldRect.contains(project(botLocation, angle, WALL_STICK))) {
             angle += orientation * 0.05;
         }
         return angle;
@@ -338,39 +326,6 @@ public class EhOTrem extends AdvancedRobot {
             }
             robot.setAhead(100);
         }
-    }
-
-    private void antiGravityMovement() {
-        double xForce = 0;
-        double yForce = 0;
-        double force;
-        double angle;
-
-        // Repel from walls
-        force = 1000 / Math.pow(getX(), 2);
-        angle = Math.PI / 2;
-        xForce -= Math.sin(angle) * force;
-        yForce -= Math.cos(angle) * force;
-
-        force = 1000 / Math.pow(getBattleFieldWidth() - getX(), 2);
-        angle = -Math.PI / 2;
-        xForce -= Math.sin(angle) * force;
-        yForce -= Math.cos(angle) * force;
-
-        force = 1000 / Math.pow(getY(), 2);
-        angle = 0;
-        xForce -= Math.sin(angle) * force;
-        yForce -= Math.cos(angle) * force;
-
-        force = 1000 / Math.pow(getBattleFieldHeight() - getY(), 2);
-        angle = Math.PI;
-        xForce -= Math.sin(angle) * force;
-        yForce -= Math.cos(angle) * force;
-
-        // Move in the direction of the force
-        double moveAngle = Math.atan2(xForce, yForce);
-        setTurnRightRadians(Utils.normalRelativeAngle(moveAngle - getHeadingRadians()));
-        setAhead(100);
     }
 
     class EnemyWave {
