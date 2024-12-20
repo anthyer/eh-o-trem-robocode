@@ -4,6 +4,8 @@ import java.awt.geom.*;
 import robocode.*;
 import robocode.util.Utils;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 // Ponto-futuro
 // Por: Antonio e Bernardo
 public class EhOTrem extends AdvancedRobot {
@@ -21,6 +23,12 @@ public class EhOTrem extends AdvancedRobot {
     private static final double WALL_STICK = 160;
     private double opponentEnergy = 100.0;
     private Rectangle2D.Double fieldRect;
+
+    private boolean movingForward = true; // Variável de estado para rastrear a direção do movimento
+    private boolean wallSmoothing = false; // Variável de estado para rastrear se está fazendo wall-smoothing
+
+    // Adicionando banco de dados de robôs
+    private Map<String, ScannedRobotEvent> enemies = new HashMap<>();
 
     public void run() {
         // Inicializar o campo de batalha dinamicamente
@@ -50,36 +58,22 @@ public class EhOTrem extends AdvancedRobot {
 
     public void onScannedRobot(ScannedRobotEvent e) {
         myLocation = new Point2D.Double(getX(), getY());
-
-        double lateralVelocity = getVelocity() * Math.sin(e.getBearingRadians());
         double absBearing = e.getBearingRadians() + getHeadingRadians();
-
-        setTurnRadarRightRadians(Utils.normalRelativeAngle(absBearing - getRadarHeadingRadians()) * 2);
-
-        surfDirections.add(0, lateralVelocity >= 0 ? 1 : -1);
-        surfAbsBearings.add(0, absBearing + Math.PI);
-
-        double bulletPower = opponentEnergy - e.getEnergy();
-        if (bulletPower < 3.01 && bulletPower > 0.09 && surfDirections.size() > 2) {
-            EnemyWave ew = new EnemyWave();
-            ew.fireTime = getTime() - 1;
-            ew.bulletVelocity = bulletVelocity(bulletPower);
-            ew.distanceTraveled = bulletVelocity(bulletPower);
-            ew.direction = surfDirections.get(2);
-            ew.directAngle = surfAbsBearings.get(2);
-            ew.fireLocation = (Point2D.Double) enemyLocation.clone();
-
-            enemyWaves.add(ew);
-        }
-
-        opponentEnergy = e.getEnergy();
         enemyLocation = project(myLocation, absBearing, e.getDistance());
 
+        // Atualizar banco de dados de robôs
+        enemies.put(e.getName(), e);
+
+        // Atualizar ondas e surfar
         updateWaves();
         doSurfing();
 
         // Disparo de bala com mira adaptativa
-        fireAtEnemy(e);
+        if (enemies.size() >= 2) {
+            fireAtEnemy(getClosestEnemy());
+        } else {
+            fireAtEnemy(e);
+        }
     }
 
     public void onHitRobot(HitRobotEvent e) {
@@ -107,7 +101,7 @@ public class EhOTrem extends AdvancedRobot {
         setTurnRadarRight(radarTurn);
         execute();
     }
-    
+
     public void onHitByBullet(HitByBulletEvent e) {
         // Lógica para lidar com tiros recebidos
         // Você pode adicionar movimentação evasiva aqui
@@ -122,14 +116,23 @@ public class EhOTrem extends AdvancedRobot {
         // Adicionar lógica para reagir ao tiro
         // Por exemplo, mover-se para uma posição diferente
         setTurnRight(90 - bearing);
-        setAhead(150);
+        if (movingForward) {
+            setAhead(150);
+        } else {
+            setBack(150);
+        }
         execute();
     
         // Verificar se o robô conseguiu se mover
         if (getDistanceRemaining() == 0) {
             // Se não conseguiu se mover, tentar na direção oposta
+            movingForward = !movingForward; // Inverter a direção
             setTurnRight(90 - bearing);
-            setBack(150);
+            if (movingForward) {
+                setAhead(150);
+            } else {
+                setBack(150);
+            }
             execute();
         }
     
@@ -138,7 +141,16 @@ public class EhOTrem extends AdvancedRobot {
         setTurnRadarRight(radarTurn);
         execute();
     }
-    
+
+    public void onHitWall(HitWallEvent e) {
+        // Priorizar wall-smoothing ao bater na parede
+        wallSmoothing = true;
+        double bearing = e.getBearing();
+        setTurnRight(-bearing);
+        setAhead(100);
+        execute();
+    }
+
     private Point2D.Double predictEnemyPosition(ScannedRobotEvent e, long time) {
         double enemyHeading = e.getHeadingRadians();
         double enemyVelocity = e.getVelocity();
@@ -346,6 +358,44 @@ public class EhOTrem extends AdvancedRobot {
         if (getGunHeat() == 0 && Math.abs(gunTurn) < Math.PI / 18) { // Dispara se a arma estiver pronta e quase alinhada
             setFire(bulletPower);
         }
+
+        // Movimento tangencial em direção ao inimigo
+        if (!wallSmoothing) {
+            double bearing = e.getBearing();
+            double direction = 1;
+            if (Math.random() > 0.5) {
+                direction = -1;
+            }
+            setTurnRight(bearing + 90 * direction); // Virar 90 graus em relação ao inimigo
+            setAhead(100); // Mover-se tangencialmente
+
+            // Ajustar a direção para evitar ficar travado
+            if (getDistanceRemaining() == 0) {
+                direction = -direction; // Inverter a direção
+                setAhead(100);
+            }
+        }
+    }
+
+    public void onRobotDeath(RobotDeathEvent e) {
+        // Remover robô do banco de dados ao morrer
+        enemies.remove(e.getName());
+    }
+
+    // Função para obter o inimigo mais próximo
+    private ScannedRobotEvent getClosestEnemy() {
+        ScannedRobotEvent closestEnemy = null;
+        double closestDistance = Double.MAX_VALUE;
+
+        for (ScannedRobotEvent enemy : enemies.values()) {
+            double distance = myLocation.distance(project(myLocation, enemy.getBearingRadians() + getHeadingRadians(), enemy.getDistance()));
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestEnemy = enemy;
+            }
+        }
+
+        return closestEnemy;
     }
 
     class EnemyWave {
