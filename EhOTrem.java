@@ -4,6 +4,7 @@ import java.awt.geom.*;
 import robocode.*;
 import robocode.util.Utils;
 import java.util.ArrayList;
+import java.awt.Color;
 // Ponto-futuro
 // Por: Antonio e Bernardo
 public class EhOTrem extends AdvancedRobot {
@@ -21,6 +22,17 @@ public class EhOTrem extends AdvancedRobot {
     private static final double WALL_STICK = 160;
     private double opponentEnergy = 100.0;
     private Rectangle2D.Double fieldRect;
+	private Color[] coresArcoIris = {
+        Color.RED,
+        Color.ORANGE,
+        Color.YELLOW,
+        Color.GREEN,
+        Color.BLUE,
+        new Color(75, 0, 130),
+        new Color(238, 130, 238)
+    };
+
+    private int indiceCor = 0;
 
     public void run() {
         // Inicializar o campo de batalha dinamicamente
@@ -32,6 +44,7 @@ public class EhOTrem extends AdvancedRobot {
         surfDirections = new ArrayList<>();
         surfAbsBearings = new ArrayList<>();
         setTremColor();
+	
 
         setAdjustGunForRobotTurn(true);  // Ajustar a arma para virar com o robô
         setAdjustRadarForGunTurn(true); // Ajustar o radar para seguir a arma
@@ -40,6 +53,16 @@ public class EhOTrem extends AdvancedRobot {
             turnRadarRightRadians(Double.POSITIVE_INFINITY);  // Rastrear o inimigo indefinidamente
         } while (true);
     }
+	
+	public void onWin(WinEvent event) {
+		
+			for(int i = 0; i <8; i++){
+			setBodyColor(coresArcoIris[indiceCor]);
+            indiceCor = (indiceCor + 1) % coresArcoIris.length;
+            doNothing();
+			if(i == 7) i = 0;
+			}
+		}
 
     public void setTremColor() {
         setBodyColor(new java.awt.Color(255, 1, 255));
