@@ -24,7 +24,7 @@ public class EhOTrem extends AdvancedRobot {
     private static final double WALL_STICK = 160;
     private double opponentEnergy = 100.0;
     private Rectangle2D.Double fieldRect;
-	private Color[] coresArcoIris = {
+    private Color[] coresArcoIris = {
         Color.RED,
         Color.ORANGE,
         Color.YELLOW,
@@ -41,6 +41,7 @@ public class EhOTrem extends AdvancedRobot {
 
     // Adicionando banco de dados de robôs
     private Map<String, ScannedRobotEvent> enemies = new HashMap<>();
+    private long lastScanTime = 0; // Variável para armazenar o tempo da última verificação
 
     public void run() {
         // Inicializar o campo de batalha dinamicamente
@@ -52,14 +53,15 @@ public class EhOTrem extends AdvancedRobot {
         surfDirections = new ArrayList<>();
         surfAbsBearings = new ArrayList<>();
         setTremColor();
-	
 
         setAdjustGunForRobotTurn(true);  // Ajustar a arma para virar com o robô
         setAdjustRadarForGunTurn(true); // Ajustar o radar para seguir a arma
 
-        do {
+        // Scanner contínuo para a estratégia surf
+        while (true) {
             turnRadarRightRadians(Double.POSITIVE_INFINITY);  // Rastrear o inimigo indefinidamente
-        } while (true);
+            execute(); // Executar ações pendentes
+        }
     }
 	
 	public void onWin(WinEvent event) {
@@ -104,10 +106,10 @@ public class EhOTrem extends AdvancedRobot {
         adjustBearingAwayFromEnemy(e);
         
         // Se o robô tiver energia suficiente, atirar no inimigo
-        if (getEnergy() > 50) {
-            setFire(3);
+        if (getEnergy() > 75) {
+            fire(3);
         } else {
-            setFire(1);
+            fire(1);
         }
     
         // Se o robô estiver muito próximo do inimigo, mover-se para trás
