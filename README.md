@@ -1,11 +1,14 @@
 <h1 align="center"> RoboCode</h1> 
-<<<<<<< HEAD
 <p align="center"><i>Repositório criado para criação de um Robô, no jogo chamado RoboCode, para fins de aprendizado de Git & GitHub</i></p>
 
 ## 1. Introdução
 
 
+### Técnologias utilizadas
 
+<img width="24" src="/Images/git.png" alt="GitLogo.png">
+<img width="24" src="/Images/github(1).png" alt="GitHubLogo.png">
+<img width="24" src="/Images/java.png" alt="JavaLogo.png">
 
 ## 2. Objetivos da atividade
 
@@ -33,5 +36,3 @@
 
 
 ## 7. Anexos
-=======
->>>>>>> cddb0bdea0da45cc05903a84702bcb8c3fd99f1b
