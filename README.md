@@ -145,7 +145,7 @@ O processo também nos mostrou como é importante analisar os resultados e testa
 ### 7.1 Wiki do RoboCode e códigos importantes
 
 - [Wiki RoboCode](https://robowiki.net/wiki/Main_Page)
-
+<p display="inline-block">
 <details>
 <summary>Inicialização do Robô</summary>
 
@@ -210,3 +210,4 @@ public void onHitWall(HitWallEvent e) {
 }
 ```
 </details>
+</p>
