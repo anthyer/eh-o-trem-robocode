@@ -1,4 +1,5 @@
 <h1 align="center"> RoboCode</h1> 
+<<<<<<< HEAD
 <p align="center"><i>Repositório criado para criação de um Robô, no jogo chamado RoboCode, para fins de aprendizado de Git & GitHub</i></p>
 
 ## 1. Introdução
@@ -32,3 +33,5 @@
 
 
 ## 7. Anexos
+=======
+>>>>>>> cddb0bdea0da45cc05903a84702bcb8c3fd99f1b
