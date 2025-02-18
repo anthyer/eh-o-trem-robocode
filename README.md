@@ -46,7 +46,7 @@ do grupo, servindo também de backup e proporcionando meios de junção de vers�
 
 - Pablo: Movimentação
 - Bernardo: Tiro
-- Érik: Sensor
+- Erik: Sensor
 - Antonio: Tiro/Sensor
   
 <p align="justify"> &emsp; Com o passar do tempo, durante as aulas e nos laboratórios, passamos a discutir e propor ideias sobre possíveis melhorias para o robô. Aos poucos, deixamos de lado a divisão inicial de tarefas específicas para cada integrante e começamos a aprimorar cada parte do robô de forma colaborativa. Isso foi necessário porque os códigos de cada funcionalidade precisavam estar integrados e harmonizados para que o conjunto final funcionasse de maneira perfeita. Por meio de testes práticos nos laboratórios e da avaliação dos resultados obtidos durante os treinamentos, conseguimos chegar ao resultado desejado.
