@@ -35,4 +35,8 @@
 
 
 
+<<<<<<< HEAD
 ## 7. Anexos
+=======
+## 7. Anexos
+>>>>>>> 3bfe42292f85e67605daea5490676abeb95fc2fa
