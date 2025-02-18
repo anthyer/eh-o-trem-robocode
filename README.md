@@ -146,7 +146,8 @@ O processo também nos mostrou como é importante analisar os resultados e testa
 
 - [Wiki RoboCode](https://robowiki.net/wiki/Main_Page)
 
-Este trecho de código mostra como o robô é inicializado e configurado:
+<details>
+<summary>Inicialização do Robô</summary>
 
 ```java
 public class EhOTrem extends AdvancedRobot {
@@ -162,40 +163,10 @@ public class EhOTrem extends AdvancedRobot {
     }
 }
 ```
+</details>
 
-Este trecho de código mostra como o robô reage ao ser atingido por um tiro:
-
-```java
-public void onHitByBullet(HitByBulletEvent e) {
-    setBack(50); // Move para trás ao ser atingido
-    turnRight(90 - e.getBearing()); // Gira 90 graus em relação ao tiro recebido
-}
-```
-
-Este trecho de código mostra como o robô reage ao ser atingido por um tiro:
-
-```java
-public void onHitByBullet(HitByBulletEvent e) {
-    setBack(50); // Move para trás ao ser atingido
-    turnRight(90 - e.getBearing()); // Gira 90 graus em relação ao tiro recebido
-}
-```
-
-Este trecho de código mostra a lógica para a movimentação evasiva do robô:
-
-```java
-public void onHitWall(HitWallEvent e) {
-    double bearing = e.getBearing();
-    if (bearing > -90 && bearing <= 90) {
-        back(100); // Move para trás se bater na parede
-    } else {
-        ahead(100); // Move para frente se bater na parede
-    }
-    turnRight(90 - bearing); // Gira 90 graus em relação à parede
-}
-```
-
-Este trecho de código mostra a lógica utilizada para aprimorar a mira do robô:
+<details>
+<summary>Lógica de Mira</summary>
 
 ```java
 public void onScannedRobot(ScannedRobotEvent e) {
@@ -211,3 +182,31 @@ public void onScannedRobot(ScannedRobotEvent e) {
     }
 }
 ```
+</details>
+
+<details>
+<summary>Reação ao Ser Atingido</summary>
+
+```java
+public void onHitByBullet(HitByBulletEvent e) {
+    setBack(50); // Move para trás ao ser atingido
+    turnRight(90 - e.getBearing()); // Gira 90 graus em relação ao tiro recebido
+}
+```
+</details>
+
+<details>
+<summary>Movimentação Evasiva</summary>
+
+```java
+public void onHitWall(HitWallEvent e) {
+    double bearing = e.getBearing();
+    if (bearing > -90 && bearing <= 90) {
+        back(100); // Move para trás se bater na parede
+    } else {
+        ahead(100); // Move para frente se bater na parede
+    }
+    turnRight(90 - bearing); // Gira 90 graus em relação à parede
+}
+```
+</details>
