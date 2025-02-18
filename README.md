@@ -237,7 +237,7 @@ public void onHitWall(HitWallEvent e) {
 <details>
 <summary>Estratégia campeã<summary>
 
-<img scr="/Images/canetaAzul.jpg">
+<img src="/Images/canetaAzul.jpg" width="350" height="600">
 
 </details>
 
