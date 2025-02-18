@@ -5,11 +5,11 @@
 
 
 ### Técnologias utilizadas
-
-<img width="24" src="/Images/git.png" alt="GitLogo.png">
-<img width="24" src="/Images/github(1).png" alt="GitHubLogo.png">
-<img width="24" src="/Images/java.png" alt="JavaLogo.png">
-
+<p display="inline-block">
+<img width="32" src="/Images/git.png" alt="GitLogo.png">
+<img width="32" src="/Images/github(1).png" alt="GitHubLogo.png">
+<img width="32" src="/Images/java.png" alt="JavaLogo.png">
+</p>
 ## 2. Objetivos da atividade
 
 
