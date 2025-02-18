@@ -31,17 +31,17 @@ O repositório está organizado da seguinte forma:
 
 Dentro do repositório temos algumas branchs criadas, nas quais todas estão organizadas da seguinte forma:
 
-<h3 align="center">Aprimorando-mira</h3>
+### Aprimorando-mira
 <p align="Center">Está branch foi criada com o intuíto de melhorar nossa mira, onde observamos que nossa movimentação estava 
 muito boa, porém estávamos perdendo muita energia pelos erros de tiro, então essa branch foi para ajustar pontos futuros da
  nossa mira e melhorar sua economia de energia.</p>
 
-<h3 align="center">Aprimorando-movimentacao</h3>
+### Aprimorando-movimentacao
 <p align="Center">Está branch foi criada a fim de corrigir alguns problemas que encontramos na movimentação quando estávamos testando,
 como por exemplo, erros de colisão, problemas com mais de um tank em batalha simultânea, fizemos alguns ajustes para que ele pudesse
 reagir de uma maneira mais eficaz quando encontrasse estes problemas.</p>
 
-<h3 align="center">Colisao-tiro</h3>
+### Colisao-tiro
 <p align="center">Está branch foi criada quando percebemos que nosso robô tinha o problema de levar tiro e não identificar quando foi
 atingido, causando o problema de não reagir quando sofresse dano, então fizemos alteração para que quando fosse atingido, reagisse da
 melhor forma, tanto fugindo, quanto revidando.</p>
