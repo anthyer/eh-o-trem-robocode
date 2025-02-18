@@ -55,23 +55,6 @@ O repositório está organizado da seguinte forma:
 - **Images/**: Contém as imagens utilizadas no README.
 - **README.md**: Documentação principal do repositório.
 
-Este trecho de código mostra como o robô é inicializado e configurado:
-
-```java
-public class EhOTrem extends AdvancedRobot {
-    @Override
-    public void run() {
-        setColors(Color.red, Color.blue, Color.green); // Configura as cores do robô
-        while (true) {
-            setAhead(100); // Move para frente
-            turnGunRight(360); // Gira o canhão
-            back(100); // Move para trás
-            turnGunRight(360); // Gira o canhão novamente
-        }
-    }
-}
-```
-
 Dentro do repositório, temos algumas branches criadas, todas organizadas da seguinte forma:
 
 ### 4.1 Aprimorando-mira
@@ -85,24 +68,6 @@ Esta branch foi criada a fim de corrigir alguns problemas que encontramos na mov
 ### 4.3 Colisao-tiro
 
 Esta branch foi criada quando percebemos que nosso robô tinha o problema de levar tiro e não identificar quando foi atingido, causando o problema de não reagir ao sofrer dano. Fizemos alterações para que, ao ser atingido, o robô reagisse da melhor forma, seja fugindo ou revidando.
-
-Este trecho de código mostra como o robô reage ao ser atingido por um tiro:
-
-```java
-public void onHitByBullet(HitByBulletEvent e) {
-    setBack(50); // Move para trás ao ser atingido
-    turnRight(90 - e.getBearing()); // Gira 90 graus em relação ao tiro recebido
-}
-```
-
-Este trecho de código mostra como o robô reage ao ser atingido por um tiro:
-
-```java
-public void onHitByBullet(HitByBulletEvent e) {
-    setBack(50); // Move para trás ao ser atingido
-    turnRight(90 - e.getBearing()); // Gira 90 graus em relação ao tiro recebido
-}
-```
 
 ### 4.4 Corrigindo-erro-de-movimentacao
 
@@ -120,19 +85,6 @@ Esta branch foi criada com o objetivo de coletar informações da batalha, como 
 
 Esta branch foi criada para podermos corrigir o erro quando o robô batia em outro robô adversário ou paredce, passando a identificar o mesmo e reagindo a ele, não ficando parado tentando seguir em frente travado no robô adversário.
 
-Este trecho de código mostra a lógica para a movimentação evasiva do robô:
-
-```java
-public void onHitWall(HitWallEvent e) {
-    double bearing = e.getBearing();
-    if (bearing > -90 && bearing <= 90) {
-        back(100); // Move para trás se bater na parede
-    } else {
-        ahead(100); // Move para frente se bater na parede
-    }
-    turnRight(90 - bearing); // Gira 90 graus em relação à parede
-}
-```
 
 ### 4.8 Movimentacao-pablo
 
@@ -153,23 +105,6 @@ Esta branch foi criada para definir alguns construtores e classes que acabaram s
 ### 4.12 Ponto-futuro
 
 Esta branch foi criada com o intuito de melhorar nossa porcentagem de acertos. Nosso robô atirava apenas onde o robô inimigo estava, o que fazia errar diversos tiros contra robôs que se moviam bastante, deixando nossa batalha menos eficaz.
-
-Este trecho de código mostra a lógica utilizada para aprimorar a mira do robô:
-
-```java
-public void onScannedRobot(ScannedRobotEvent e) {
-    double absoluteBearing = getHeading() + e.getBearing();
-    double bearingFromGun = normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
-    if (Math.abs(bearingFromGun) <= 3) {
-        turnGunRight(bearingFromGun);
-        if (getGunHeat() == 0) {
-            fire(Math.min(3 - Math.abs(bearingFromGun), getEnergy() - 0.1));
-        }
-    } else {
-        turnGunRight(bearingFromGun);
-    }
-}
-```
 
 ### 4.13 Sensor-erik
 
@@ -206,3 +141,73 @@ O processo também nos mostrou como é importante analisar os resultados e testa
 
 
 ## 7. Anexos
+
+### 7.1 Wiki do RoboCode e códigos importantes
+
+- [Wiki RoboCode](https://robowiki.net/wiki/Main_Page)
+
+Este trecho de código mostra como o robô é inicializado e configurado:
+
+```java
+public class EhOTrem extends AdvancedRobot {
+    @Override
+    public void run() {
+        setColors(Color.red, Color.blue, Color.green); // Configura as cores do robô
+        while (true) {
+            setAhead(100); // Move para frente
+            turnGunRight(360); // Gira o canhão
+            back(100); // Move para trás
+            turnGunRight(360); // Gira o canhão novamente
+        }
+    }
+}
+```
+
+Este trecho de código mostra como o robô reage ao ser atingido por um tiro:
+
+```java
+public void onHitByBullet(HitByBulletEvent e) {
+    setBack(50); // Move para trás ao ser atingido
+    turnRight(90 - e.getBearing()); // Gira 90 graus em relação ao tiro recebido
+}
+```
+
+Este trecho de código mostra como o robô reage ao ser atingido por um tiro:
+
+```java
+public void onHitByBullet(HitByBulletEvent e) {
+    setBack(50); // Move para trás ao ser atingido
+    turnRight(90 - e.getBearing()); // Gira 90 graus em relação ao tiro recebido
+}
+```
+
+Este trecho de código mostra a lógica para a movimentação evasiva do robô:
+
+```java
+public void onHitWall(HitWallEvent e) {
+    double bearing = e.getBearing();
+    if (bearing > -90 && bearing <= 90) {
+        back(100); // Move para trás se bater na parede
+    } else {
+        ahead(100); // Move para frente se bater na parede
+    }
+    turnRight(90 - bearing); // Gira 90 graus em relação à parede
+}
+```
+
+Este trecho de código mostra a lógica utilizada para aprimorar a mira do robô:
+
+```java
+public void onScannedRobot(ScannedRobotEvent e) {
+    double absoluteBearing = getHeading() + e.getBearing();
+    double bearingFromGun = normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
+    if (Math.abs(bearingFromGun) <= 3) {
+        turnGunRight(bearingFromGun);
+        if (getGunHeat() == 0) {
+            fire(Math.min(3 - Math.abs(bearingFromGun), getEnergy() - 0.1));
+        }
+    } else {
+        turnGunRight(bearingFromGun);
+    }
+}
+```
