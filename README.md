@@ -46,9 +46,9 @@ do grupo, servindo também de backup e proporcionando meios de junção de vers�
 
 - Pablo: Movimentação
 - Bernardo: Tiro
+- Erik: Sensor
 - Antonio: Tiro/Sensor
-- Erik: Sensor 
-
+  
 <p align="justify"> &emsp; Com o passar do tempo, durante as aulas e nos laboratórios, passamos a discutir e propor ideias sobre possíveis melhorias para o robô. Aos poucos, deixamos de lado a divisão inicial de tarefas específicas para cada integrante e começamos a aprimorar cada parte do robô de forma colaborativa. Isso foi necessário porque os códigos de cada funcionalidade precisavam estar integrados e harmonizados para que o conjunto final funcionasse de maneira perfeita. Por meio de testes práticos nos laboratórios e da avaliação dos resultados obtidos durante os treinamentos, conseguimos chegar ao resultado desejado.
 <p align="justify"> &emsp; Adotamos a estratégia de movimento chamada "Surf", combinada com o sensor, para facilitar a esquiva de obstáculos e ameaças. Quando o robô estava com pouca vida, ele se afastava dos inimigos e realizava disparos com menor potência, a fim de recuperar energia. O sensor era responsável por detectar inimigos, tiros direcionados ao robô e as paredes do campo de batalha. Além disso, tivemos uma longa discussão para decidir a cor do robô, que, após muita deliberação, foi definida como magenta. Como toque final, programamos o robô para piscar todas as cores do arco-íris sempre que vencia uma batalha.
 
