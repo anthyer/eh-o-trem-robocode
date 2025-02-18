@@ -37,8 +37,8 @@ do grupo, servindo também de backup e proporcionando meios de junção de vers�
 
 ## 2. Objetivos da atividade
 
-
-
+<p align="justify"> &emsp; A atividade realizada teve como objetivo principal o exercício das habilidades de utilização dos comandos Git em Linux e sua integração com a plataforma GitHub para manter o controle das versões em nuvem. Além disso, a evolução das habilidades de codificação dos membros do grupo na composição dos robôs, utilizando a linguagem de programação Java.</p>
+<p align="justify"> &emsp; Outro ponto abordado foi o trabalho em equipe e a criatividade dos membros do grupo, visto que os robôs foram postos em batalha com os demais robôs criados pelas outras equipes. Dessa forma, foi necessária a colaboração contínua e a discussão de pontos a serem acrescentados e aprimorados no robô para se sair bem na competição realizada.</p>
 
 ## 3. Descrição das atividades
 
@@ -47,92 +47,75 @@ do grupo, servindo também de backup e proporcionando meios de junção de vers�
 
 ## 4. Estrutura Git utilizada
 
+## Estrutura do Repositório
+
 O repositório está organizado da seguinte forma:
 
-- **EhOTrem.java**: Código principal do robô. 
+- **EhOTrem.java**: Código principal do robô.
 - **Images/**: Contém as imagens utilizadas no README.
 - **README.md**: Documentação principal do repositório.
 
-Dentro do repositório temos algumas branchs criadas, nas quais todas estão organizadas da seguinte forma:
+Dentro do repositório, temos algumas branches criadas, todas organizadas da seguinte forma:
 
 ### 4.1 Aprimorando-mira
 
-Está branch foi criada com o intuíto de melhorar nossa mira, onde observamos que nossa movimentação estava 
-muito boa, porém estávamos perdendo muita energia pelos erros de tiro, então essa branch foi para ajustar pontos futuros da
-nossa mira e melhorar sua economia de energia.
+Esta branch foi criada com o intuito de melhorar nossa mira. Observamos que nossa movimentação estava muito boa, porém estávamos perdendo muita energia pelos erros de tiro. Então, essa branch foi para ajustar pontos futuros da nossa mira e melhorar sua economia de energia.
 
 ### 4.2 Aprimorando-movimentacao
 
-Está branch foi criada a fim de corrigir alguns problemas que encontramos na movimentação quando estávamos testando,
-como por exemplo, erros de colisão, problemas com mais de um tank em batalha simultânea, fizemos alguns ajustes para que ele pudesse
-reagir de uma maneira mais eficaz quando encontrasse estes problemas.
+Esta branch foi criada a fim de corrigir alguns problemas que encontramos na movimentação durante os testes, como erros de colisão e problemas com mais de um tanque em batalha simultânea. Fizemos alguns ajustes para que o robô pudesse reagir de maneira mais eficaz a esses problemas.
 
 ### 4.3 Colisao-tiro
 
-Está branch foi criada quando percebemos que nosso robô tinha o problema de levar tiro e não identificar quando foi
-atingido, causando o problema de não reagir quando sofresse dano, então fizemos alteração para que quando fosse atingido, reagisse da
-melhor forma, tanto fugindo, quanto revidando.
+Esta branch foi criada quando percebemos que nosso robô tinha o problema de levar tiro e não identificar quando foi atingido, causando o problema de não reagir ao sofrer dano. Fizemos alterações para que, ao ser atingido, o robô reagisse da melhor forma, seja fugindo ou revidando.
 
 ### 4.4 Corrigindo-erro-de-movimentacao
 
-Está branch foi criada quando haviamos tentado mudar o método de movimentação surf e acabamos quebrando o robô. Ela foi criada com
-o intuíto de fazer o robô voltar ao normal, porém dessa vez com as mudanças que tinhamos em mente, como por exemplo, maior imprevesibilidade
-e uma melhor perfomace em batalha.
+Esta branch foi criada quando tentamos mudar o método de movimentação surf e acabamos quebrando o robô. Ela foi criada com o intuito de fazer o robô voltar ao normal, porém, desta vez, com as mudanças que tínhamos em mente, como maior imprevisibilidade e uma melhor performance em batalha.
 
 ### 4.5 Corzinha
 
-Está branch foi criada com o intuíto inicial de fazer o robô piscar as cores do arco íris a todo momento, porém não conseguimos e 
-ela foi criada para apenas piscar as cores somente quando o robô atinge a vitória.
+Esta branch foi criada com o intuito inicial de fazer o robô piscar as cores do arco-íris a todo momento, mas não conseguimos. Então, ela foi criada para apenas piscar as cores quando o robô atingisse a vitória.
 
 ### 4.6 Getting-info
 
-Está branch foi criada com o fim de coletar informações da batalha, como posição de players, dimensão da arena e distância dos mesmos.
+Esta branch foi criada com o objetivo de coletar informações da batalha, como posição dos jogadores, dimensão da arena e distância entre eles.
 
-### 4.7 Melhorando-colisao 
+### 4.7 Melhorando-colisao
 
-Está branch foi criada para podermos corrigir o eero de quando o robô batia em algum outro robô adversário, poder identificar o mesmo,
-dessa maneira reagindo a ele, não ficando somente parado tentando seguir em frente travado no robô adversário.
+Esta branch foi criada para podermos corrigir o erro quando o robô batia em outro robô adversário, passando a identificar o mesmo e reagindo a ele, não ficando parado tentando seguir em frente travado no robô adversário.
 
 ### 4.8 Movimentacao-pablo
 
-Está branch foi iniciada para implementar o método de movimentação de surf, porém ela acabou tento um certo problema na hora do merge,
-pois acabamos errando na hora do commit, acabou sendo feito um commit de um código enorme, e na hora de dar merge tinha diversos problemas
-de mesclagem, porém com muita dedicação e dor de cabeça, no final ocorreu tudo bem.
+Esta branch foi iniciada para implementar o método de movimentação surf. No entanto, acabou tendo problemas durante o merge, pois fizemos um commit de um código enorme, o que gerou diversos problemas de mesclagem. Com muita dedicação e dor de cabeça, no final, ocorreu tudo bem.
 
 ### 4.9 Movimentacao-antonio
 
-Está branch foi criada delegando a função de movimentação para o Antonio, porém foi decidido posteriormente que a função seria delegada
-para mim, então essa branch se encontra vazia e sem informações adicionais.
+Esta branch foi criada delegando a função de movimentação para o Antonio, mas depois foi decidido que a função seria delegada para mim. Por isso, esta branch está vazia e sem informações adicionais.
 
 ### 4.10 Movimentacao-travada
 
-Nesta branch estávamos resolvendo problemas do robô quando ele não reconhecia o tamanho da arena, quando isso acabava acontencedo, o
-robô ficava travado sem conseguir fazer nada, impossibilitando de fazer algo contra os inimigos.
+Nesta branch, estávamos resolvendo problemas do robô quando ele não reconhecia o tamanho da arena. Quando isso acontecia, o robô ficava travado, impossibilitando qualquer ação contra os inimigos.
 
-### 4.11 new-classes
+### 4.11 New-classes
 
-Está branch foi criada a fim de definir alguns construtores e classes que acabaram sendo usadas posteriormente.
+Esta branch foi criada para definir alguns construtores e classes que acabaram sendo usados posteriormente.
 
-### 4.12 ponto-futuro
- 
-Está branch foi criada para fins de melhorar nossa porcentagem de acertos, nosso robô somente atirava onde o robô inimigo estava, isso
-fazia errarmos diversos tiros contra robôs que se moviam bastante, deixando menos eficaz nossa batalha.
+### 4.12 Ponto-futuro
 
-### 4.13 sensor-erik
+Esta branch foi criada com o intuito de melhorar nossa porcentagem de acertos. Nosso robô atirava apenas onde o robô inimigo estava, o que fazia errar diversos tiros contra robôs que se moviam bastante, deixando nossa batalha menos eficaz.
 
-Está branch foi criada a fim de configurar o sensor, porém acaobu sendo preciso implementar junto na movimentação do surf, pois o surf
-era dependente do sensor, então esta branch acabou por ficar vazia.
+### 4.13 Sensor-erik
 
-### 4.12 switch
+Esta branch foi criada para configurar o sensor, mas acabou sendo necessário implementá-lo junto com a movimentação surf, pois o surf dependia do sensor. Portanto, esta branch acabou ficando vazia.
 
-Está branch foi criada com o intuíto de fazer com que o robô tivesse dois modos de batalha, um para quando estivesse sozinho contra outro
-robô e mais um modo para quando estivesse com 3 ou mais robôs na arena, porém ele acabou sendo abandonado pela dificuldade e falta de tempo 
-que tinhamos restante.
+### 4.14 Switch
 
-### 4.13 tiro-bernardo
+Esta branch foi criada com o intuito de fazer com que o robô tivesse dois modos de batalha: um para quando estivesse sozinho contra outro robô e outro para quando estivesse com três ou mais robôs na arena. No entanto, foi abandonada pela dificuldade e falta de tempo que tínhamos.
 
-Está branch foi criada com o intuíto de delegar a função de tiro para o Bernardo, porém acabou sendo preciso implementar na parte
-de movimentação de surf, pois o método também acabou sendo dependente do tiro.
+### 4.15 Tiro-bernardo
+
+Esta branch foi criada para delegar a função de tiro para o Bernardo, mas acabou sendo necessário implementar na parte de movimentação surf, pois o método também dependia do tiro.
 
 ## 5. Resultados e aprendizados
 
