@@ -14,13 +14,13 @@ ICO7862 - Introdução a Computação
 
 ## Tópicos
 
-- [Introdução](#1. Introdução)
+- [Introdução](#1-introdução)
 - [Objetivos da Atividade](#2-objetivos-da-atividade)
 - [Descrição da Atividade](#3-descrição-das-atividades)
 - [Estrutura do Git Utilizada](#4-estrutura-git-utilizada)
 - [Resultado e Aprendizados](#5-resultados-e-aprendizados)
-- [Conclusão](#6. Conclusão)
-- [Anexos](#7. Anexos)
+- [Conclusão](#6-conclusão)
+- [Anexos](#7-anexos)
 ## 1. Introdução
 
 <p align="justify"> &emsp; O referido relatório tem como objetivo explicitar as etapas realizadas para a elaboração de um robô no aplicativo Robocode, com foco no gerenciamento de suas versões durante o desenvolvimento, por meio da plataforma GitHub. O robô recebeu o nome de EhOTrem, assumindo o pseudônimo de um dos membros do grupo.</p>
