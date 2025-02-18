@@ -1,8 +1,32 @@
-<h1 align="center"> RoboCode</h1> 
-<p align="center"><i>Repositório criado para criação de um Robô, no jogo chamado RoboCode, para fins de aprendizado de Git & GitHub</i></p>
+<p align="center">
+<img src="/Images/ifsc-logo.png" width="180" height="180">
+</p>
+**INSTITUTO FEDERAL DE SANTA CATARINA  
+Análise e desenvolvimento de Sistemas - 1ª fase  
+ICO7862 - Introdução a Computação  
+Professor:** Diego da Silva de Medeiros  
+**Discentes:**  Antonio Marcos da Silva, Bernardo Silva Bombazaro, Érik Crestani Bueno, Pablo Batista Danski
 
+---
+
+# Robocode: EhOTrem
+
+## Tópicos
+
+
+- [Introdução](#1. Introdução)
+- [Objetivos da Atividade](#2. Objetivos da Atividade)
+- [Descrição da Atividade](#3. Descrição da Atividade)
+- [Estrutura do Git Utilizada](#4. Estrutura do Git Utilizada)
+- [Resultado e Aprendizados](#5. Resultado e Aprendizados)
+- [Conclusão](#6. Conclusão)
+- [Anexos](#7. Anexos)
 ## 1. Introdução
 
+<p align="justify"> &emsp; O referido relatório tem como objetivo explicitar as etapas realizadas para a elaboração de um robô no aplicativo Robocode, com foco no gerenciamento de suas versões durante o desenvolvimento, por meio da plataforma GitHub. O robô recebeu o nome de EhOTrem, assumindo o pseudônimo de um dos membros do grupo.</p>
+<p align="justify"> &emsp; O Robocode é um aplicativo no qual robôs criados pelos usuários batalham entre si, gerando pontuações que, somadas ao final de um número predeterminado de rodadas, definem o vencedor da partida. Além do número de rodadas, é possível predeterminar também o tamanho do campo de batalha, havendo variação de desempenho dos robôs em decorrência do tamanho da arena.</p>
+<p align="justify"> &emsp; O GitHub é uma plataforma de desenvolvimento com foco em controle de versões, baseada em Git. Todo o projeto foi desenvolvido mantendo as versões salvas no GitHub, possibilitando a colaboração entre os membros da equipe de forma simultânea, mesmo trabalhando em locais diferentes, mantendo um histórico das versões desenvolvidas por cada membro 
+do grupo, servindo também de backup e proporcionando meios de junção de versões diferentes sem perder seu histórico de alterações.</p>
 
 ### Técnologias utilizadas
 <p display="inline-block">
@@ -117,6 +141,13 @@ de movimentação de surf, pois o método também acabou sendo dependente do tir
 
 ## 6. Conclusão
 
+<p align="justify"> &emsp; A experiência foi muito enriquecedora, proporcionando a todos os membros da equipe uma vivência de trabalho em equipe que facilmente se encontra no mercado de trabalho e em projetos pessoais. Outro ponto muito importante foi a evolução do grupo como um todo em relação à tecnologia Git e à plataforma GitHub, ferramentas amplamente utilizadas nos meios acadêmicos e profissionais.</p>
+<p align="justify"> &emsp; Dentre os lados positivos da atividade realizada, destacou-se o aprimoramento da linguagem Java, em que o grupo desenvolveu um código que não apenas foi satisfatório para o grupo, mas também alcançou a primeira colocação no campeonato realizado entre as equipes.</p>
+<p align="justify"> &emsp; As habilidades aprimoradas durante a realização da atividade terão grande importância durante e após a conclusão do curso de Análise e Desenvolvimento de Sistemas. Trabalho em equipe, Git, Linux e Java (conhecimento que também se aplica a outras linguagens de programação) são habilidades que acompanham os programadores e analistas de sistemas durante toda a sua jornada.</p>
+
+<p align="center">
+<img src="/Images/victory.jpeg" width="600" height="350">
+</p>
 
 
 
