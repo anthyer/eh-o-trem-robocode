@@ -1,24 +1,24 @@
 <p align="center">
 <img src="/Images/ifsc-logo.png" width="180" height="180">
 </p>
-**INSTITUTO FEDERAL DE SANTA CATARINA  
+
+**INSTITUTO FEDERAL DE SANTA CATARINA**  
 Análise e desenvolvimento de Sistemas - 1ª fase  
 ICO7862 - Introdução a Computação  
-Professor:** Diego da Silva de Medeiros  
+**Professor:** Diego da Silva de Medeiros  
 **Discentes:**  Antonio Marcos da Silva, Bernardo Silva Bombazaro, Érik Crestani Bueno, Pablo Batista Danski
 
 ---
 
-# Robocode: EhOTrem
+<h1 align="center">Robocode: EhOTrem</h1>
 
 ## Tópicos
 
-
 - [Introdução](#1. Introdução)
-- [Objetivos da Atividade](#2. Objetivos da Atividade)
-- [Descrição da Atividade](#3. Descrição da Atividade)
-- [Estrutura do Git Utilizada](#4. Estrutura do Git Utilizada)
-- [Resultado e Aprendizados](#5. Resultado e Aprendizados)
+- [Objetivos da Atividade](#2-objetivos-da-atividade)
+- [Descrição da Atividade](#3-descrição-das-atividades)
+- [Estrutura do Git Utilizada](#4-estrutura-git-utilizada)
+- [Resultado e Aprendizados](#5-resultados-e-aprendizados)
 - [Conclusão](#6. Conclusão)
 - [Anexos](#7. Anexos)
 ## 1. Introdução
@@ -136,6 +136,11 @@ de movimentação de surf, pois o método também acabou sendo dependente do tir
 
 ## 5. Resultados e aprendizados
 
+Trabalhar com o Robocode foi uma experiência desafiadora que nos trouxe ótimos resultados e aprendizados. Ao programarmos nosso robô, tivemos a chance de aplicar conceitos de programação de forma prática, como a organização do código e a reutilização de funções. Isso nos permitiu aprimorar nossa capacidade de estruturar o código de maneira mais eficiente, tornando-o mais claro e fácil de entender, especialmente quando lidamos com o comportamento complexo de um robô.
+
+Além disso, fomos desafiados a implementar estratégias inteligentes para que o robô pudesse tomar decisões durante as batalhas, como antecipar os movimentos do oponente ou escolher a melhor hora de atacar. A experiência de ver essas estratégias em ação e ver o robô evoluir à medida que ajustamos os algoritmos foi muito enriquecedora. A cada batalha, aprendemos algo novo sobre pequenas mudanças no código, como a movimentação do robô ou a precisão dos disparos, poderiam impactar o desempenho.
+
+O processo também nos mostrou como é importante analisar os resultados e testar diferentes abordagens para melhorar o desempenho do robô. A cada derrota ou vitória, surgiam novas ideias, e tivemos que revisar constantemente o código para otimizar a movimentação e a estratégia de combate. No fim, conseguimos perceber o quanto a prática e os testes são essenciais para que um sistema se torne mais eficiente e inteligente.
 
 
 
