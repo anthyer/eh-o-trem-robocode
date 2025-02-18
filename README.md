@@ -150,7 +150,7 @@ do grupo, servindo também de backup e proporcionando meios de junção de vers�
 ### 7.1 Wiki do RoboCode e códigos importantes
 
 - <a href="https://robowiki.net/wiki/Main_Page" target="_blank">Wiki RoboCode</a>
-<p display="inline-block">
+
 <details>
 <summary>Inicialização do Robô</summary>
 
@@ -232,12 +232,11 @@ public void onHitWall(HitWallEvent e) {
 ```
 
 </details>
-</p>
 
 <details>
 <summary>Estratégia campeã<summary>
 
-<p><img src="/Images/canetaAzul.jpg" width="350" height="600"></p>
+<img src="/Images/canetaAzul.jpg" width="350" height="600"><p>Alteração</p></img>
 
 </details>
 
