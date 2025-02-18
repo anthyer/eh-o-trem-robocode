@@ -42,6 +42,14 @@ do grupo, servindo também de backup e proporcionando meios de junção de vers�
 
 ## 3. Descrição das atividades
 
+<p align="justify"> &emsp; Inicialmente, distribuímos as funções do robô entre os membros do grupo, ficando organizado da seguinte forma:
+
+- Érik: Sensor
+- Pablo: Movimentação
+- Bernardo: Tiro
+- Antonio: Tiro/Sensor
+
+<p align="justify"> &emsp; Com o passar do tempo, durante as aulas e nos laboratórios, passamos a discutir e propor ideias sobre possíveis melhorias para o robô. Aos poucos, abandonamos a divisão inicial de tarefas específicas para cada integrante e começamos a trabalhar de forma colaborativa, aprimorando cada parte do robô em conjunto. Por meio de testes práticos nos laboratórios e da avaliação dos resultados obtidos durante os treinamentos, conseguimos chegar ao resultado final.
 
 
 
