@@ -215,6 +215,23 @@ public void onHitWall(HitWallEvent e) {
 }
 ```
 </details>
+
+<details>
+<summary>Corzinhas</summary>
+
+```java
+ public void onWin(WinEvent event) {
+		
+        for(int i = 0; i <8; i++){
+        setBodyColor(coresArcoIris[indiceCor]);
+        indiceCor = (indiceCor + 1) % coresArcoIris.length;
+        doNothing();
+        if(i == 7) i = 0;
+        }
+    }
+```
+
+</details>
 </p>
 
 
