@@ -144,7 +144,7 @@ O processo também nos mostrou como é importante analisar os resultados e testa
 
 ### 7.1 Wiki do RoboCode e códigos importantes
 
-- [Wiki RoboCode](https://robowiki.net/wiki/Main_Page)
+- <a href="https://robowiki.net/wiki/Main_Page" target="_blank">Wiki RoboCode</a>
 <p display="inline-block">
 <details>
 <summary>Inicialização do Robô</summary>
