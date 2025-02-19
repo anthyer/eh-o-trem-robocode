@@ -233,11 +233,4 @@ public void onHitWall(HitWallEvent e) {
 
 </details>
 
-<details>
-<summary>Estratégia campeã<summary>
-
-<img src="/Images/canetaAzul.jpg" width="350" height="600"><p>Alteração</p></img>
-
-</details>
-
 - [Movimentação Surf](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
